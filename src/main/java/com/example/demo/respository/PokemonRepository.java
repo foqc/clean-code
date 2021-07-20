@@ -6,6 +6,7 @@ import com.example.demo.helpers.WebClientHelper;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,20 +24,17 @@ public class PokemonRepository {
   private String url;
 
   public List<Pokemon> getAll(int offset, int limit) {
-    Pokemon[] pokemons = webClientBuilder.builder()
+    return webClientBuilder.builder()
         .build()
         .get()
         .uri(url + "?offset=" + offset + "&limit=" + limit)
         .exchange()
         .timeout(Duration.ofMillis(70_000))
         .flatMap(
-            response -> response.bodyToMono(PokemonResume.class).map(PokemonResume::getResults))
+            response -> response.bodyToMono(PokemonResume.class)
+                .map(PokemonResume::getResults)
+                .map(Arrays::stream).map(stream -> stream.collect(Collectors.toList()))
+        )
         .block();
-
-    if (pokemons == null) {
-      return null;
-    } else {
-      return Arrays.stream(pokemons).collect(Collectors.toList());
-    }
   }
 }

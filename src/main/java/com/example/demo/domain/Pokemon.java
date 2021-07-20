@@ -13,5 +13,6 @@ public class Pokemon {
 
   private String name;
   private String url;
+  private int ability;
 
 }

@@ -5,6 +5,7 @@ import com.example.demo.service.PokemonService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +17,8 @@ public class PokemonController {
 
   private final PokemonService service;
 
-  @GetMapping("pokemons")
-  public List<PokemonDTO> getAllPokemons() {
-    return service.getAll(0, 0);
+  @GetMapping("pokemons/${prefix}")
+  public List<PokemonDTO> getAllPokemons(@PathVariable String prefix) {
+    return service.getAllByStartPrefix(prefix);
   }
 }

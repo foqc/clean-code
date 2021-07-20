@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class PokemonDTO {
 
   private String name;
+  private int ability;
 }

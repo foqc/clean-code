@@ -19,12 +19,32 @@ public class PokemonServiceImpl implements PokemonService {
   private final PokemonRepository preciseRepository;
 
   @Override
-  public List<PokemonDTO> getAll(int offset, int limit) {
-    List<Pokemon> pokemons = preciseRepository.getAll(offset, limit);
-    return pokemons.stream().map(pokemon -> {
-      PokemonDTO pokemonDTO = new PokemonDTO();
-      pokemonDTO.setName(pokemon.getName());
-      return pokemonDTO;
-    }).collect(Collectors.toList());
+  public List<PokemonDTO> getAllByStartPrefix(String prefix) {
+    List<Pokemon> pokemons = preciseRepository.getAll(0, 0);
+    return pokemons.stream().filter(pokemon -> pokemon.getName().startsWith(prefix))
+        .map(pokemon -> {
+          PokemonDTO pokemonDTO = new PokemonDTO();
+          pokemonDTO.setName(pokemon.getName());
+          pokemonDTO.setAbility(1);
+          return pokemonDTO;
+        }).collect(Collectors.toList());
+  }
+
+  @Override
+  public List<PokemonDTO> getAllByEndPrefix(String prefix) {
+    List<Pokemon> pokemons = preciseRepository.getAll(0, 0);
+    return pokemons.stream().filter(pokemon -> pokemon.getName().endsWith(prefix))
+        .map(pokemon -> {
+          PokemonDTO pokemonDTO = new PokemonDTO();
+          pokemonDTO.setName(pokemon.getName());
+          pokemonDTO.setAbility(5);
+          return pokemonDTO;
+        }).collect(Collectors.toList());
+  }
+
+  @Override
+  public List<String> getAllPokemonsName() {
+    List<Pokemon> pokemons = preciseRepository.getAll(0, 0);
+    return pokemons.stream().map(pokemon -> pokemon.getName()).collect(Collectors.toList());
   }
 }
