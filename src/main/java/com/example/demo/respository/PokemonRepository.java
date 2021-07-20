@@ -1,5 +1,6 @@
 package com.example.demo.respository;
 
+import com.example.demo.DTO.PokemonResume;
 import com.example.demo.domain.Pokemon;
 import com.example.demo.helpers.WebClientHelper;
 import java.time.Duration;
@@ -28,7 +29,9 @@ public class PokemonRepository {
         .uri(url + "?offset=" + offset + "&limit=" + limit)
         .exchange()
         .timeout(Duration.ofMillis(70_000))
-        .flatMap(response -> response.bodyToMono(Pokemon[].class)).block();
+        .flatMap(
+            response -> response.bodyToMono(PokemonResume.class).map(PokemonResume::getResults))
+        .block();
 
     if (pokemons == null) {
       return null;
