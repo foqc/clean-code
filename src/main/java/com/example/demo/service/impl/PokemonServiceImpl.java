@@ -16,12 +16,12 @@ import org.springframework.stereotype.Service;
 public class PokemonServiceImpl implements PokemonService {
 
 
-  private final PokemonRepository preciseRepository;
+  private final PokemonRepository pr;
 
   @Override
-  public List<PokemonDTO> getAllByStartPrefix(String prefix) {
-    List<Pokemon> pokemons = preciseRepository.getAll(0, 0);
-    return pokemons.stream().filter(pokemon -> pokemon.getName().startsWith(prefix))
+  public List<PokemonDTO> obtener_pokemon(String p) {
+    List<Pokemon> pokemons = pr.getAll(0, 0);
+    return pokemons.stream().filter(pokemon -> pokemon.getName().startsWith(p))
         .map(pokemon -> {
           PokemonDTO pokemonDTO = new PokemonDTO();
           pokemonDTO.setName(pokemon.getName());
@@ -31,9 +31,9 @@ public class PokemonServiceImpl implements PokemonService {
   }
 
   @Override
-  public List<PokemonDTO> getAllByEndPrefix(String prefix) {
-    List<Pokemon> pokemons = preciseRepository.getAll(0, 0);
-    return pokemons.stream().filter(pokemon -> pokemon.getName().endsWith(prefix))
+  public List<PokemonDTO> obtener_pokemon2(String p) {
+    List<Pokemon> pokemons = pr.getAll(0, 0);
+    return pokemons.stream().filter(pokemon -> pokemon.getName().endsWith(p))
         .map(pokemon -> {
           PokemonDTO pokemonDTO = new PokemonDTO();
           pokemonDTO.setName(pokemon.getName());
@@ -44,7 +44,7 @@ public class PokemonServiceImpl implements PokemonService {
 
   @Override
   public List<String> getAllPokemonsName() {
-    List<Pokemon> pokemons = preciseRepository.getAll(0, 0);
+    List<Pokemon> pokemons = pr.getAll(0, 0);
     return pokemons.stream().map(pokemon -> pokemon.getName()).collect(Collectors.toList());
   }
 }

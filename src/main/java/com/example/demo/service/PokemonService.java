@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface PokemonService {
 
-  List<PokemonDTO> getAllByStartPrefix(String prefix);
+  List<PokemonDTO> obtener_pokemon(String prefix);
 
-  List<PokemonDTO> getAllByEndPrefix(String prefix);
+  List<PokemonDTO> obtener_pokemon2(String prefix);
 
   List<String> getAllPokemonsName();
 }
