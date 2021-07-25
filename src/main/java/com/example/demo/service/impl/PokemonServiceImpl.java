@@ -20,31 +20,31 @@ public class PokemonServiceImpl implements PokemonService {
 
   @Override
   public List<PokemonDTO> obtener_pokemon(String p) {
-    List<Pokemon> pokemons = pr.getAll(0, 0);
-    return pokemons.stream().filter(pokemon -> pokemon.getName().startsWith(p))
-        .map(pokemon -> {
-          PokemonDTO pokemonDTO = new PokemonDTO();
-          pokemonDTO.setName(pokemon.getName());
-          pokemonDTO.setAbility(1);
-          return pokemonDTO;
+    List<Pokemon> pks = pr.getAll(0, 0);
+    return pks.stream().filter(ps -> ps.getName().startsWith(p))
+        .map(ps -> {
+          PokemonDTO psDTO = new PokemonDTO();
+          psDTO.setName(ps.getName());
+          psDTO.setAbility(1);
+          return psDTO;
         }).collect(Collectors.toList());
   }
 
   @Override
   public List<PokemonDTO> obtener_pokemon2(String p) {
-    List<Pokemon> pokemons = pr.getAll(0, 0);
-    return pokemons.stream().filter(pokemon -> pokemon.getName().endsWith(p))
-        .map(pokemon -> {
-          PokemonDTO pokemonDTO = new PokemonDTO();
-          pokemonDTO.setName(pokemon.getName());
-          pokemonDTO.setAbility(5);
-          return pokemonDTO;
+    List<Pokemon> pks = pr.getAll(0, 0);
+    return pks.stream().filter(ps -> ps.getName().endsWith(p))
+        .map(ps -> {
+          PokemonDTO psDTO = new PokemonDTO();
+          psDTO.setName(ps.getName());
+          psDTO.setAbility(5);
+          return psDTO;
         }).collect(Collectors.toList());
   }
 
   @Override
   public List<String> getAllPokemonsName() {
-    List<Pokemon> pokemons = pr.getAll(0, 0);
-    return pokemons.stream().map(pokemon -> pokemon.getName()).collect(Collectors.toList());
+    List<Pokemon> pks = pr.getAll(0, 0);
+    return pks.stream().map(ps -> ps.getName()).collect(Collectors.toList());
   }
 }
